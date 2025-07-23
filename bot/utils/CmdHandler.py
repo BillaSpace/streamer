@@ -124,7 +124,7 @@ To upload a file, use the command /remote [file_url]
 
 `FTP URL, Direct Link (M3U8), Google Drive, OneDrive, mediafire.com, Yandex Disk, FileSend.jp, OK.RU, Mail.Ru, VK.com, Gofile.io, Streamtape.com, Vimeo.com, Youtube.com, Streamlare.com, 1fichier.com, MEGA, DropMeFiles.com, TusFiles.com, MixDrop, FileMoon, FileLions, StreamWish, VOE.sx, TeraBox, Fembed, VidMoly, Uptobox, PornHub.com, XVIDEOS.COM, xHamster.com`
 
-💠 **Supported URL Formats :** https://t.me/TechZBots/813
+💠 **Supported URL Formats :** https://t.me/BillaCore
 """,
             disable_web_page_preview=True,
         )
