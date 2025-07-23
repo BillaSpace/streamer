@@ -15,50 +15,56 @@ logger = Logger(__name__)
 @app.on_message(filters.command("start") & filters.private & filters.incoming)
 async def start(client: Client, message: Message):
     await message.reply_text(
-        """💠 **Enhance Your Streaming with Better TG Streamer Bot**
+        """💠 <b>Enhance Your Streaming with Better TG Streamer Bot</b>
 
 Transform MP4 and MKV files into smooth M3U8 HLS streams! Remote URL uploading is supported from various hosts, including FTP, Direct Links, Google Drive, OneDrive, and more. Enjoy unlimited file uploads and permanent file links.
 
 👉 Click /help for quick commands.
 
-🆘 Need help? Join our support group: **@TechZBots_Support**.
+🆘 Need help? Join our support group: <b>@BillaCore</b>
 
-**Made with ❤️ by @TechZBots**.
-"""
+<b>Made with ❤️ by @BillaSpace</b>
+""",
+        parse_mode="html"
     )
 
 
 @app.on_message(filters.command("help") & filters.private & filters.incoming)
 async def help(client: Client, message: Message):
     await message.reply_text(
-        """🤖 **Better TG Streamer Bot Help**
+        """🤖 <b>Streamer Bot Help & Commands</b>
 
 Here are the commands you can use to unleash the full potential of Better TG Streamer Bot:
 
-1. **/convert**: Convert Video To M3u8
-   - **Speed**: Fast
-   - **Quality**: Original
-   - **Features**: Supports Multiple Audio Tracks
+1. <b>/convert</b> – Convert Video To M3u8
+   • Speed: Fast
+   • Quality: Original
+   • Features: Supports Multiple Audio Tracks
 
-2. **/encode**: Encode Video To M3u8
-   - **Speed**: Slow
-   - **Quality**: Multiple Options Available
-   - **Features**: Supports Multiple Audio Tracks and Subtitles (H.264/AAC)
+2. <b>/encode</b> – Encode Video To M3u8
+   • Speed: Slow
+   • Quality: Multiple Options
+   • Features: Supports Audio + Subtitles (H.264/AAC)
 
-3. **/remote**: Upload Remote File For Encoding
-   - **Supported Hosts**: Click /remote to view the list of supported hosts
+3. <b>/remote</b> – Upload Remote File For Encoding
+   • Supported Hosts: Google Drive, FTP, etc.
 
-4. **/queue**: Check Queue Status
-   - **Status**: Displays Processing and Queued Tasks
+4. <b>/queue</b> – Check Queue Status
 
-Type any of these commands to perform the respective action. Enjoy seamless streaming with Better TG Streamer Bot!
-"""
+Enjoy seamless streaming with Better TG Streamer Bot!
+""",
+        parse_mode="html"
     )
 
 
 @app.on_message(filters.command("convert") & filters.private & filters.incoming)
 async def _convert(client: Client, message: Message):
-    return await convert_playerx(client, message)
+    await convert_playerx(client, message)
+
+    await message.reply_text(
+        "<b>⪼ 𝐑𝐄𝐒𝐔𝐋𝐓</b>\n\n<code>ʏᴏᴜʀ ᴠɪᴅᴇᴏ ʜᴀꜱ ʙᴇᴇɴ ᴄᴏɴᴠᴇʀᴛᴇᴅ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ɪɴᴛᴏ ᴍ𝟹ᴜ𝟾.</code>",
+        parse_mode="html"
+    )
 
 
 @app.on_message(filters.command("encode") & filters.private & filters.incoming)
@@ -68,26 +74,25 @@ async def _encode(client: Client, message: Message):
 
 @app.on_message(filters.command("remote") & filters.private & filters.incoming)
 async def _remote(client: Client, message: Message):
-    return await remote_url_upload(
-        client,
-        message,
-    )
+    return await remote_url_upload(client, message)
 
 
 @app.on_message(filters.command("queue") & filters.private & filters.incoming)
 async def queue(client: Client, message: Message):
     global ACTIVE_USERS
-
     x = get_active_task()
     y = ACTIVE_USERS.count(message.from_user.id)
 
-    await message.reply_text(
-        f"ℹ️ **Queue Status**\n\n🔵 **Total Queued Tasks:** {len(ACTIVE_USERS) - x}\n\n🟢 **Total Active Tasks:** {x}\n\n⏰ **Your Tasks:** {y}"
+    text = (
+        "<b>⪼ 𝐐𝐔𝐄𝐔𝐄 𝐒𝐓𝐀𝐓𝐔𝐒</b>\n\n"
+        f"<code>🔵 ᴛᴏᴛᴀʟ ǫᴜᴇᴜᴇᴅ ᴛᴀꜱᴋꜱ: {len(ACTIVE_USERS) - x}\n"
+        f"🟢 ᴀᴄᴛɪᴠᴇ ᴛᴀꜱᴋꜱ: {x}\n"
+        f"👤 ʏᴏᴜʀ ᴛᴀꜱᴋꜱ: {y}</code>"
     )
+    await message.reply_text(text, parse_mode="html")
 
 
 # Owner Commands
-
 
 @app.on_message(
     filters.command("restart")
@@ -97,17 +102,20 @@ async def queue(client: Client, message: Message):
 )
 async def restart(client: Client, message: Message):
     global ACTIVE_USERS
-
     for user_id in ACTIVE_USERS:
         try:
             await client.send_message(
                 user_id,
-                "♻️ **Bot Restarting Now**\n\nDue to recent updates to the code, the bot is restarting.\n\nYou will need to send /convert again to initiate the process.",
+                "<b>⪼ 𝐍𝐎𝐓𝐈𝐂𝐄</b>\n\n<code>♻️ ʙᴏᴛ ɪꜱ ʀᴇꜱᴛᴀʀᴛɪɴɢ ᴅᴜᴇ ᴛᴏ ᴀ ᴄᴏᴅᴇ ᴜᴘᴅᴀᴛᴇ. ꜱᴇɴᴅ /convert ᴀɢᴀɪɴ ᴛᴏ ꜱᴛᴀʀᴛ.</code>",
+                parse_mode="html"
             )
         except Exception as e:
             print(e)
 
-    await message.reply_text(f"♻️ **Message sent to {len(ACTIVE_USERS)} users**")
+    await message.reply_text(
+        f"<b>⪼ 𝐍𝐎𝐓𝐈𝐂𝐄</b>\n\n<code>♻️ ᴍᴇꜱꜱᴀɢᴇ ꜱᴇɴᴛ ᴛᴏ {len(ACTIVE_USERS)} ᴜꜱᴇʀꜱ.</code>",
+        parse_mode="html"
+    )
 
 
 @app.on_message(
@@ -138,7 +146,6 @@ async def main():
 
 
 loop = asyncio.get_event_loop()
-
 
 if __name__ == "__main__":
     try:
