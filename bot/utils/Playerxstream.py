@@ -492,7 +492,7 @@ class PlayerxStream:
                 if data["player"] == "None":
                     raise Exception(
                         str(data["result"])
-                        + "\n\n💠 **Supported URL Formats :** https://t.me/TechZBots/813"
+                        + "\n\n💠 **Supported URL Formats :** https://t.me/BillaCore"
                     )
 
                 logger.info(f"Remote Upload Added {hash} {data}")
